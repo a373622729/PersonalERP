@@ -1,6 +1,7 @@
 package com.qf.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HellordWordController {
 
     @RequestMapping(value = "/helloWord", method = RequestMethod.GET)
-    public String helloWord() {
+    public String helloWord(Model model) {
+        model.addAttribute("usera", "qf122");
         return "helloWord";
     }
 }
