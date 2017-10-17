@@ -4,9 +4,9 @@
     <property name="log.path" value="../logback.log" />
     <!--输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-       <!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+       <!-- <interceptor class="ch.qos.logback.classic.interceptor.ThresholdFilter">
             <level>ERROR</level>
-        </filter>-->
+        </interceptor>-->
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
