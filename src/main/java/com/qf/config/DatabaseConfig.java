@@ -2,8 +2,11 @@ package com.qf.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 /**
  * Created by ios on 17/10/17.
@@ -12,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan(basePackages = {"com.qf.mapper"})
 public class DatabaseConfig {
     @Bean
-    public DruidDataSource druidDataSource(){
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource druidDataSource(){
         DruidDataSource dataSource =new DruidDataSource();
         dataSource.setUsername("root");
         dataSource.setPassword("a123456");

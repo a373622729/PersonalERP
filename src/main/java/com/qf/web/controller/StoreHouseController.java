@@ -16,7 +16,7 @@ public class StoreHouseController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String storeHouse() {
         return "storeHouse/storeHouse";
     }
