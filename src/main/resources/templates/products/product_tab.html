@@ -35,6 +35,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <!-- Custom Tabs -->
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab_all" data-toggle="tab">所有</a></li>
+
+                                <!--/*@thymesVar id="productClass" type="com.qf.domain.ProductClassVO"*/-->
+                                <!--/*@thymesVar id="productClassChildrenList" type="java.util.ArrayList"*/-->
+                                <!--/*@thymesVar id="productClassVOs" type="java.util.ArrayList"*/-->
+                                <!--/*@thymesVar id="childClass" type="com.qf.domain.ProductClassVO"*/-->
+                                <li th:class="${not #lists.isEmpty(productClass.productClassChildrenList)} ? 'dropdown'"
+                                    th:each="productClass : ${productClassVOs}">
+                                    <!--没有下级菜单-->
+                                    <a href="#tab_2" data-toggle="tab" th:href="'#tab_'+${productClass.id}"
+                                       th:if="${#lists.isEmpty(productClass.productClassChildrenList)}"
+                                       th:text="${productClass.name}">Tab 2</a>
+                                    <div th:remove="tag" th:unless="${#lists.isEmpty(productClass.productClassChildrenList)}">
+                                        <!--有下级菜单-->
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" >
+                                            <span th:text="${productClass.name}">Dropdown</span><span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li role="presentation">
+                                                <a role="menuitem" data-toggle="tab"
+                                                   th:tabindex="${productClass.id}"
+                                                   th:href="'#tab_'+${productClass.id}"
+                                                   tabindex="-1"
+                                                   href="#tab_1">所有</a>
+                                            </li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li role="presentation"
+                                                th:each="childClass : ${productClass.productClassChildrenList}"><a
+                                                    role="menuitem" data-toggle="tab" tabindex="-1" href="#"
+                                                    th:tabindex="${childClass.id}"
+                                                    th:href="'#tab_'+${childClass.id}"
+                                                    th:text="${childClass.name}">Action</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-tabs" th:remove="all">
                                 <li class="active"><a href="#tab_1" data-toggle="tab">所有</a></li>
                                 <li><a href="#tab_2" data-toggle="tab">Tab 2</a></li>
                                 <li><a href="#tab_3" data-toggle="tab">Tab 3</a></li>
@@ -43,7 +84,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         Dropdown <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a>
+                                        <li role="presentation"><a role="menuitem" data-toggle="tab" tabindex="-1"
+                                                                   href="#tab_1">Action</a>
                                         </li>
                                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another
                                             action</a></li>
@@ -59,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane active" id="tab_1">
+                                <div class="tab-pane active" id="tab_all">
                                     <b>How to use:</b>
 
                                     <p>Exactly like the original bootstrap tabs except you should use

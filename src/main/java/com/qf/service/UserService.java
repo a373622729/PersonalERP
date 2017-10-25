@@ -38,6 +38,10 @@ public class UserService {
         }
     }
 
+    public User getLoginUser(User user) {
+        return  userMapper.findByName(user.getName());
+    }
+
     public Cookie rememberMe(Boolean remember, User user) {
         if (remember) {
             return new Cookie("autoLogin", user.getName() + "|" + user.getPassword());

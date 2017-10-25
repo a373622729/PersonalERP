@@ -17,7 +17,17 @@ public class ProductClassification {
     private String name;
 
     @NotNull
-    private Integer level;
+    protected Integer level;
+
+    @NotNull Integer userId;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public Integer getId() {
         return id;

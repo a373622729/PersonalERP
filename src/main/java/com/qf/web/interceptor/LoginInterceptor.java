@@ -47,7 +47,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 user.setName(username);
                 user.setPassword(password);
                 if (userService.login(user).equals(UserService.ACCESS)) {
-                    request.getSession().setAttribute("user", user);
+                    request.getSession().setAttribute("user", userService.getLoginUser(user));
                     return true;
                 }
             } else {

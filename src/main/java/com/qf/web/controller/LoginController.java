@@ -52,7 +52,7 @@ public class LoginController {
                 redirectAttributes.addFlashAttribute("errorMessage", "账号不存在");
                 return "redirect:/login";
             case UserService.ACCESS:
-                session.setAttribute("user", user);
+                session.setAttribute("user", userService.getLoginUser(user));
                 Cookie cookie = userService.rememberMe(remember, user);
                 if (cookie != null) {
                     cookie.setMaxAge(24 * 3600 * 30);
