@@ -18,19 +18,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div data-layout-fragment="content_fragment">
             <section class="content-header">
                 <h1>
-                    仓库
-                    <small>包含所有的商品信息</small>
+                    商品信息
+                    <small>只包含商品信息</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#" th:href="@{/home}"><i class="fa fa-dashboard"></i>主页</a></li>
-                    <li class="active">仓库</li>
+                    <li class="active">商品</li>
                 </ol>
             </section>
 
             <!-- Main content -->
             <section class="content container-fluid">
-                <div th:replace="storeHouse/product_tab :: product_tab">
-                    仓库Tab
+                <div th:replace="products/product_tab :: product_tab">
+                    商品Tab
                 </div>
 
             </section>

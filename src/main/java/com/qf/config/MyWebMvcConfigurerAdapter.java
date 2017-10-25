@@ -1,7 +1,9 @@
 package com.qf.config;
 
 import com.qf.web.interceptor.LoginInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -29,6 +31,12 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 //        super.addViewControllers(registry);
 //    }
 
+    //这样可以防止在loginIntercepror中的service报空指针异常
+    @Bean
+    HandlerInterceptor loginInterceptor() {
+        return new LoginInterceptor();
+    }
+
     /**
      * 拦截器
      * addPathPatherns 用于添加拦截规则
@@ -36,7 +44,7 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/toLogin", "/login");
+        registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/toLogin", "/login");
         super.addInterceptors(registry);
     }
 }

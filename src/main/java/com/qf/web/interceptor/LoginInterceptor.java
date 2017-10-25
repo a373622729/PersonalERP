@@ -33,8 +33,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("autoLogin")) {
-                        username = cookie.getValue().split("|")[0];
-                        password = cookie.getValue().split("|")[1];
+                        String autoLogin = cookie.getValue();
+                        String ss[] = autoLogin.split("\\|");
+                        username = ss[0];
+                        password = ss[1];
                         break;
                     }
                 }

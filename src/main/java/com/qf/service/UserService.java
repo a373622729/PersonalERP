@@ -4,6 +4,7 @@ import com.qf.domain.User;
 import com.qf.mapper.UserMapper;
 import com.qf.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;

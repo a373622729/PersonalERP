@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -13,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by ios on 17/10/17.
@@ -26,13 +31,21 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "login";
+    public String login(@ModelAttribute User user) {
+         return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(User user, boolean remember, HttpSession session,
-                        HttpServletResponse response ,RedirectAttributes redirectAttributes) {
+    public String login(@Valid User user, BindingResult result, boolean remember, HttpSession session,
+                        HttpServletResponse response , RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            List<FieldError> list = result.getFieldErrors();
+            for (FieldError error:list) {
+               logger.info(error.getField() + "--"+error.getDefaultMessage());
+            }
+            return "/login";
+        }
+
         String state = userService.login(user);
         switch (state) {
             case UserService.INVALID_USER:
@@ -43,7 +56,7 @@ public class LoginController {
                 Cookie cookie = userService.rememberMe(remember, user);
                 if (cookie != null) {
                     cookie.setMaxAge(24 * 3600 * 30);
-                    cookie.setPath("/**");
+                    cookie.setPath("/");
                     response.addCookie(cookie);
                 }
                 return "redirect:/home";
