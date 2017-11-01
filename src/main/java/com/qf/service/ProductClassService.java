@@ -5,6 +5,7 @@ import com.qf.mapper.ProductClassMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class ProductClassService {
     public List<ProductClassVO> findAllProductClass(Integer userId) {
         int depthLevel = productClassMapper.findDeepthLevel();
         if (depthLevel == 0) {
-            return null;
+            return new ArrayList<>();
         } else {
             return productClassMapper.findClassByLevel(1, userId);
         }

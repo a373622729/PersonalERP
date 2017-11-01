@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/head :: head" th:remove="tag"></div>
+    <title>Blank Page</title>
+</head>
+
+<body class="sticky-header">
+
+<section>
+
+    <div th:replace="fragments/left_side :: left_side"></div>
+    <!-- main content start-->
+    <div class="main-content">
+
+        <div th:replace="fragments/header_section :: header_section"></div>
+        <div data-layout-fragment="right_content">
+            <!-- page heading start-->
+            <div class="page-heading">
+                Page Tittle goes here
+            </div>
+            <!-- page heading end-->
+
+            <!--body wrapper start-->
+            <div class="wrapper">
+                Body contents goes here
+            </div>
+            <!--body wrapper end-->
+        </div>
+        <!--footer section start-->
+        <!--<div th:replace="fragments/footer_section :: footer_section"></div>-->
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<div th:replace="fragments/foot_js :: foot_js"></div>
+<div data-layout-fragment="custom_script" th:remove="tag"></div>
+
+</body>
+</html>

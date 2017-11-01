@@ -1,5 +1,6 @@
 package com.qf.web.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.qf.domain.ProductClassVO;
 import com.qf.domain.User;
 import com.qf.service.ProductClassService;
@@ -8,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -42,8 +40,21 @@ public class ProductController {
 
     @RequestMapping( value = "", method = RequestMethod.GET)
     public String products(Model model) {
-        List<ProductClassVO> productClassVOs = productClassService.findAllProductClass(authContext.get().getId());
-        model.addAttribute("productClassVOs", productClassVOs);
+
         return "products/products";
+    }
+
+    @RequestMapping(value = "class", method = RequestMethod.GET)
+    @ResponseBody
+    public String getProductClass(){
+        List<ProductClassVO> productClassVOs = productClassService.findAllProductClass(authContext.get().getId());
+        ProductClassVO first = new ProductClassVO();
+        first.setName("所有");
+        productClassVOs.add(0, first);
+        String jsonString = JSONArray.toJSONString(productClassVOs);
+        jsonString = jsonString.replaceAll("name", "text")
+                .replaceAll("productClassChildrenList", "nodes")
+                .replace(",\"nodes\":[]", "");
+        return jsonString;
     }
 }

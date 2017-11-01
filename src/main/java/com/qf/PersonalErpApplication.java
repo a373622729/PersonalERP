@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ServletComponentScan
 @MapperScan("com.qf.mapper")
+//@EnableScheduling
+//@EnableCaching
 public class PersonalErpApplication {
 
 //	@Bean

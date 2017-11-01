@@ -1,11 +1,12 @@
 package com.qf.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ios on 17/10/24.
  */
-public class ProductClassVO extends ProductClassification{
+public class ProductClassVO extends ProductClassification implements Serializable{
 
     private List<ProductClassVO> productClassChildrenList;  //子级类型
 

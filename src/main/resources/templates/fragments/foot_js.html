@@ -3,15 +3,17 @@
       xmlns:th="http://www.thymeleaf.org">
 <body>
 <h1>This is Foot JS Fragment</h1>
-    <div th:fragment="foot_js">
-        <!-- REQUIRED JS SCRIPTS -->
+    <div th:fragment="foot_js" th:remove="tag">
+        <script th:src="@{js/jquery-1.10.2.min.js}"></script>
+        <script th:src="@{js/jquery-ui-1.9.2.custom.min.js}"></script>
+        <script th:src="@{js/jquery-migrate-1.2.1.min.js}"></script>
+        <script th:src="@{js/bootstrap.min.js}"></script>
+        <script th:src="@{js/modernizr.min.js}"></script>
+        <script th:src="@{js/jquery.nicescroll.js}"></script>
 
-        <!-- jQuery 3 -->
-        <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
-        <!-- AdminLTE App -->
-        <script th:src="@{/dist/js/adminlte.min.js}"></script>
+
+        <!--common scripts for all pages-->
+        <script th:src="@{js/scripts.js}"></script>
     </div>
 </body>
 

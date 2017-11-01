@@ -29,9 +29,19 @@ public class Product {
     private Integer stockBox;
 
     private Integer stockPiece;
+    @Length(max = 50)
+    private String position;
 
     @NotNull
     private Integer userId;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
     public Integer getUserId() {
         return userId;
