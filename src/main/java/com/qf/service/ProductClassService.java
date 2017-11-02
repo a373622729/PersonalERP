@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by ios on 17/10/25.
@@ -18,12 +19,18 @@ public class ProductClassService {
     private ProductClassMapper productClassMapper;
 
     public List<ProductClassVO> findAllProductClass(Integer userId) {
-        int depthLevel = productClassMapper.findDeepthLevel();
-        if (depthLevel == 0) {
+        Integer depthLevel = productClassMapper.findDeepthLevel();
+        if ( depthLevel == 0) {
             return new ArrayList<>();
         } else {
             return productClassMapper.findClassByLevel(1, userId);
         }
+    }
+
+    public boolean addProductClass(Integer pid, String name, Integer userId) {
+        int level = pid == 0 ? 0 : productClassMapper.findLevel(pid);
+        int count =  productClassMapper.insertProductClass( pid, name, userId, level + 1);
+        return count == 1;
     }
 
 }

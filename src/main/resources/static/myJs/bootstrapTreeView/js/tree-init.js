@@ -50,21 +50,32 @@ var TreeView = function () {
                     $treeView.treeview({
                         data: data,
                         showBorder: false,
-                        collapseIcon: "fa fa-minus",
-                        expandIcon: "fa fa-plus",
-                        emptyIcon: "fa fa-leaf"
+                        collapseIcon: "fa fa-folder-open-o",
+                        expandIcon: "fa fa-folder-o",
+                        emptyIcon: "fa fa-leaf",
+                        onNodeSelected: function(event, node){
+                            $('.productClassOp').removeClass('disabled');
+                            $('.modal-title-span').html(node.text);
+                            $('#product-class-selected-node-id').val(node.id);
+                        },
+                        onNodeUnselected: function(event, node) {
+                            $('.productClassOp').addClass('disabled');
+                        }
                     });
-                    $treeView.treeview('toggleNodeSelected',[0, {silent: true}])
+                    $treeView.treeview('toggleNodeSelected',[0])
                 },
                 error: function() {
                     $treeView.treeview({
                         data: tree,
                         showBorder: false,
-                        collapseIcon: "fa fa-minus",
-                        expandIcon: "fa fa-plus",
-                        emptyIcon: "fa fa-leaf"
+                        collapseIcon: "fa fa-folder-open-o",
+                        expandIcon: "fa fa-folder-o",
+                        emptyIcon: "fa fa-leaf",
+                        onNodeSelected: function(event, node){
+                            //alert(node.id +", " + node.text)
+                        }
                     });
-                    $treeView.treeview('toggleNodeSelected',[0, {silent: true}])
+                    $treeView.treeview('toggleNodeSelected',[0])
                 }
             });
 

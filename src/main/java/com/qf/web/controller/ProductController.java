@@ -44,17 +44,25 @@ public class ProductController {
         return "products/products";
     }
 
-    @RequestMapping(value = "class", method = RequestMethod.GET)
+    @RequestMapping(value = "/class", method = RequestMethod.GET)
     @ResponseBody
     public String getProductClass(){
         List<ProductClassVO> productClassVOs = productClassService.findAllProductClass(authContext.get().getId());
         ProductClassVO first = new ProductClassVO();
         first.setName("所有");
+        first.setId(0);
         productClassVOs.add(0, first);
         String jsonString = JSONArray.toJSONString(productClassVOs);
         jsonString = jsonString.replaceAll("name", "text")
                 .replaceAll("productClassChildrenList", "nodes")
                 .replace(",\"nodes\":[]", "");
         return jsonString;
+    }
+
+    @RequestMapping(value = "/class/{pid}", method = RequestMethod.POST)
+    @ResponseBody
+    public String addProductClass(@PathVariable("pid") Integer pid, String name) {
+        boolean success =  productClassService.addProductClass(pid, name, authContext.get().getId());
+        return "{\"success\" : \""+ success +"\"}";
     }
 }

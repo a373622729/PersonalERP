@@ -13,6 +13,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link th:href="@{js/advanced-datatable/css/demo_page.css}" rel="stylesheet"/>
     <link th:href="@{js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{js/data-tables/DT_bootstrap.css}"/>
+
+    <style>
+        .modal-title-span {
+            color: red;
+            font-size: 22px;
+        }
+    </style>
 </head>
 <body>
 <div data-layout-fragment="right_content">
@@ -38,12 +45,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         分类列表
                           <span class="tools pull-right">
 
-                                <span><a class="fa fa-plus" href="javascript:;"></a></span>
+                                <span>
+                                    <a href="#productClassModalInsert" data-toggle="modal" class="productClassOp btn fa fa-plus" ></a>
+                                    <a href="#productClassModalDelete" data-toggle="modal" class="productClassOp btn fa fa-trash-o" ></a>
+                                    <a href="#productClassModalUpdate" data-toggle="modal" class="productClassOp btn fa fa-refresh" ></a>
+                                </span>
                                 <a class="fa fa-chevron-up" href="javascript:;"></a>
                             </span>
                     </div>
                     <div class="panel-body">
                         <div id="bootstrapTree"></div>
+                        <div th:replace="products/productClassModal :: product_class_modal_insert"></div>
+                        <div th:replace="products/productClassModal :: product_class_modal_update"></div>
+                        <div th:replace="products/productClassModal :: product_class_modal_delete"></div>
                     </div>
                 </section>
             </div>
@@ -502,13 +516,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script type="text/javascript" th:src="@{js/data-tables/DT_bootstrap.js}"></script>
     <!--dynamic table initialization -->
     <script th:src="@{js/dynamic_table_init.js}"></script>
+
+    <script type="text/javascript" th:src="@{myJs/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{myJs/product/validation-init.js}"></script>
     <script type="text/javascript">
-        $(function () {
+        $().ready(function () {
+            //选中left_side对应条目
             var sideItemName = $("#side_item_name").val();
             var sideItemId = "side_item_" + sideItemName;
             $("#" + sideItemId).addClass("active");
-
+            //初始化类别树
             TreeView.init();
+
+            ProductClassValidate.init();
         });
     </script>
 </div>

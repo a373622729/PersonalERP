@@ -13,7 +13,7 @@ public class ProductClassification {
     private Integer id;
     @NotNull
     private Integer parentId;
-    @Length(min = 1, max = 20)
+    @Length(min = 2, max = 20)
     private String name;
 
     @NotNull
