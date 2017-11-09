@@ -845,12 +845,12 @@ min, max, tickDecimals, tickSize.
 
 ## Flot 0.3 ##
 
-This is mostly a quick-fix release because jquery.js wasn't included in the
+This is mostly a quick-fix release because jquery-1.8.4.js wasn't included in the
 previous zip/tarball.
 
 ## Changes ##
 
- - Include jquery.js in the zip/tarball.
+ - Include jquery-1.8.4.js in the zip/tarball.
 
  - Support clicking on the plot. Turn it on with grid: { clickable: true },
    then you get a "plotclick" event on the graph placeholder with the position

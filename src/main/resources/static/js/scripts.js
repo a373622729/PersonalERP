@@ -129,15 +129,44 @@
       }
    }
 
+    //用来处理分类列表折叠的时候左边的操作按钮状态
+    var deleteOp = 1, updateOp = 1, insertOp = 1;
+
+    function collspanProductClass() {
+        $('#product_table_row').addClass('row');
+        $('#product_table_data').removeClass("col-md-8").removeClass("col-lg-9").addClass("col-md-12").addClass("col-lg-12");
+        $('#product_table_row').insertAfter($('#product_table_row').parent(".row"));
+        deleteOp = updateOp = insertOp = 1;
+        if ($('#deleteOp').hasClass('disabled')) { deleteOp = 0; }
+        if ($('#updateOp').hasClass('disabled')) { updateOp = 0; }
+        if ($('#insertOp').hasClass('disabled')) { updateOp = 0; }
+        $('#deleteOp').addClass('disabled');
+        $('#updateOp').addClass('disabled');
+        $('#insertOp').addClass('disabled');
+    }
+
+    function openProductClass() {
+        $('#product_table_row').removeClass('row');
+        $('#product_table_data').removeClass("col-md-12").removeClass("col-lg-12").addClass("col-md-8").addClass("col-lg-9");
+        $('#product_table_row').insertAfter($('#product_table_row').prev("div").children("div"));
+        deleteOp == 1 ? $('#deleteOp').removeClass('disabled') : 0;
+        updateOp == 1 ? $('#updateOp').removeClass('disabled') : 0;
+        insertOp == 1 ? $('#insertOp').removeClass('disabled') : 0;
+    }
+
     // panel collapsible
     $('.panel .tools .fa').click(function () {
+        var eh = $(this).parents(".panel").children(".panel-heading");
         var el = $(this).parents(".panel").children(".panel-body");
         if ($(this).hasClass("fa-chevron-up")) {
             $(this).removeClass("fa-chevron-up").addClass("fa-chevron-down");
             el.slideUp(200);
+            collspanProductClass();
         } else if ($(this).hasClass("fa-chevron-down")){
             $(this).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-            el.slideDown(200); }
+            el.slideDown(200);
+            openProductClass()
+        }
     });
 
     $('.todo-check label').click(function () {

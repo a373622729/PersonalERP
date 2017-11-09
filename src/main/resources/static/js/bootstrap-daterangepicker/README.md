@@ -20,7 +20,7 @@ This component relies on [Twitter Bootstrap](http://twitter.github.com/bootstrap
 Basic usage:
 
 ```
-<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery-1.8.4.js"></script>
 <script type="text/javascript" src="date.js"></script>
 <script type="text/javascript" src="daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="bootstrap.css" />

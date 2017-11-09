@@ -22,6 +22,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String      url     = request.getRequestURI();
+
         HttpSession session = request.getSession();
         User        loginUser    = (User) session.getAttribute("user");
         if (loginUser != null) {

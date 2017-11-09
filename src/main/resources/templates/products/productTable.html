@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>商品详细信息</title>
+</head>
+<body>
+<div th:fragment="product_table" th:remove="tag">
+    <section class="panel">
+        <header class="panel-heading">
+            <span class="product_table_span" style="color: #3ecdaa;padding-right: 20px;">***类别名称（动态获取）</span>
+
+            <div class="btn-group">
+                <button id="add_product_button" class="btn btn-primary" >
+                    新增 <i class="fa fa-plus"></i></button>
+
+            </div>
+        <span class="tools pull-right">
+                    <a href="javascript:;" class="fa fa-chevron-up"></a>
+            </span>
+        </header>
+        <div class="panel-body">
+            <div class="adv-table">
+                <table  class="display table table-bordered table-striped" id="product-table">
+                    <thead>
+                    <tr>
+                        <th>product.id</th>
+                        <th>product.imagePath</th>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>颜色</th>
+                        <th>尺寸</th>
+                        <th>成本价(元/片)</th>
+                        <th>单位(片/箱)</th>
+                        <th>描述</th>
+                        <th>typeId</th>
+                        <th>userId</th>
+                        <th>stock.id</th>
+                        <th>存放位置</th>
+                        <th>库存数量(片)</th>
+                        <th>价值(元)</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

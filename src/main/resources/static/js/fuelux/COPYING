@@ -22,7 +22,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 The above license does not apply to the following bundled components:
 
-•	jQuery located at lib/jquery.js
+•	jQuery located at lib/jquery-1.8.4.js
 •	Bootstrap Apache 2.0 Located under lib/bootstrap
 •	RequireJS located at lib/require.js
 •	QUnit located under lib/qunit

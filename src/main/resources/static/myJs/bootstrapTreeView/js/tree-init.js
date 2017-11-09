@@ -5,77 +5,67 @@ var TreeView = function () {
 
     return {
         //main function to initiate the module
-        init: function () {
-
-            //var tree = [
-            //    {
-            //        text: "Parent 1",
-            //        nodes: [
-            //            {
-            //                text: "Child 1",
-            //                nodes: [
-            //                    {
-            //                        text: "Grandchild 1"
-            //                    },
-            //                    {
-            //                        text: "Grandchild 2"
-            //                    }
-            //                ]
-            //            },
-            //            {
-            //                text: "Child 2"
-            //            }
-            //        ]
-            //    },
-            //    {
-            //        text: "Parent 2"
-            //    },
-            //    {
-            //        text: "Parent 3"
-            //    },
-            //    {
-            //        text: "Parent 4"
-            //    },
-            //    {
-            //        text: "Parent 5"
-            //    }
-            //];
+        init: function (selectId) {
             var tree = [{text: "所有"}];
             var $treeView = $('#bootstrapTree');
             $.ajax({
                 type: "get",
                 dataType: "json",
-                url:"/products/class",
-                success: function(data) {
+                url: "/products/class",
+                success: function (data) {
                     $treeView.treeview({
                         data: data,
                         showBorder: false,
                         collapseIcon: "fa fa-folder-open-o",
                         expandIcon: "fa fa-folder-o",
                         emptyIcon: "fa fa-leaf",
-                        onNodeSelected: function(event, node){
-                            $('.productClassOp').removeClass('disabled');
+                        onNodeSelected: function (event, node) {
+                            if (node.id == 0) {
+                                $('#deleteOp').addClass('disabled');
+                                $('#updateOp').addClass('disabled');
+                                $('#insertOp').removeClass('disabled');
+                            } else {
+                                $('.productClassOp').removeClass('disabled');
+                            }
+
                             $('.modal-title-span').html(node.text);
-                            $('#product-class-selected-node-id').val(node.id);
+                            $('.product_table_span').html(node.text);
+                            $('#product-class-selected-node-id').val(node.id); //数据库中类型对应的id
+
+
+                            //判断是否为叶子节点, 非叶子节点不可以添加货物
+                            if (node.id == 0 || node.nodes != undefined) {
+                                $('#add_product_button').addClass('disabled');
+                            } else {
+                                $('#add_product_button').removeClass('disabled');
+                            }
+                            refreshData(); //更新表格数据
+
                         },
-                        onNodeUnselected: function(event, node) {
+                        onNodeUnselected: function (event, node) {
                             $('.productClassOp').addClass('disabled');
                         }
+
                     });
-                    $treeView.treeview('toggleNodeSelected',[0])
+
+                    if (selectId === undefined) {
+                        $treeView.treeview('toggleNodeSelected', [0])
+                    } else {
+                        $treeView.treeview('toggleNodeSelected', [Number(selectId)])
+                    }
                 },
-                error: function() {
+                error: function () {
                     $treeView.treeview({
                         data: tree,
                         showBorder: false,
                         collapseIcon: "fa fa-folder-open-o",
                         expandIcon: "fa fa-folder-o",
                         emptyIcon: "fa fa-leaf",
-                        onNodeSelected: function(event, node){
+                        onNodeSelected: function (event, node) {
                             //alert(node.id +", " + node.text)
                         }
                     });
-                    $treeView.treeview('toggleNodeSelected',[0])
+                    $treeView.treeview('toggleNodeSelected', [0])
                 }
             });
 

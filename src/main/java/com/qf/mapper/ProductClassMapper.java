@@ -59,5 +59,14 @@ public interface ProductClassMapper {
     @Insert("insert into product_classification (parent_id, name, user_id, level) values(#{pid}, #{name}, #{userId}, #{level})")
     int insertProductClass(@Param("pid") Integer pid, @Param("name") String name, @Param("userId") Integer userId, @Param("level") Integer level);
 
+    @Update("update product_classification set name = #{name} where id = #{id} and user_id = #{userId}")
+    int updateProductClass(@Param("id") Integer id, @Param("name") String name, @Param("userId") Integer userId);
+
+    @Delete("delete from product_classification where id in (${ids})") //in中需要用${} 不能用#{}
+    int deleteProductClass(@Param("ids") String ids);
+
+    @Select("select findChildrenNodeIds(#{id})")
+    String findChildrenNodeIds(@Param("id") Integer id);
+
     ProductClassVO findAllClass();
 }

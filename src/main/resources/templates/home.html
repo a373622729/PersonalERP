@@ -5,38 +5,111 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html xmlns="http://www.w3.org/1999/html"
       xmlns:th="http://www.thymeleaf.org"
-        data-layout-decorator="blank_page">
+      data-layout-decorator="blank_page">
 <head>
     <title>Home</title>
-
+    <!--dynamic table-->
+    <link th:href="@{js/advanced-datatable/css/demo_page.css}" rel="stylesheet"/>
+    <link th:href="@{js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{js/data-tables/DT_bootstrap.css}"/>
 </head>
 <body>
-    <div data-layout-fragment="right_content">
-        <input type="hidden" id="side_item_name" value="home"/>
-        <!-- page heading start-->
-        <div class="page-heading">
-            <h3>Home</h3>
-            <ul class="breadcrumb panel">
-                <li class="active"><i class="fa fa-home"></i> Home</li>
-            </ul>
-        </div>
-        <!-- page heading end-->
-
-        <!--body wrapper start-->
-        <div class="wrapper">
-            Body contents goes here
-        </div>
-        <!--body wrapper end-->
+<div data-layout-fragment="right_content">
+    <input type="hidden" id="side_item_name" value="home"/>
+    <!-- page heading start-->
+    <div class="page-heading">
+        <h3>Home</h3>
+        <ul class="breadcrumb panel">
+            <li class="active"><i class="fa fa-home"></i> Home</li>
+        </ul>
     </div>
+    <!-- page heading end-->
 
-    <div data-layout-fragment="custom_script">
-        <script type="text/javascript">
-            $(function(){
-                var sideItemName = $("#side_item_name").val();
-                var sideItemId = "side_item_" + sideItemName;
-                $("#"+sideItemId).addClass("active");
-            });
-        </script>
+    <!--body wrapper start-->
+    <div class="wrapper">
+        Body contents goes here
+
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Dynamic Table
+            <span class="tools pull-right">
+                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                <a href="javascript:;" class="fa fa-times"></a>
+             </span>
+                    </header>
+                    <div class="panel-body">
+                        <div class="adv-table">
+                            <table class="display table table-bordered" id=" dynamic-table">
+                                <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>number</th>
+                                    <th>name</th>
+                                    <th class="hidden-phone">color</th>
+                                    <th class="hidden-phone">size</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>id</th>
+                                    <th>number</th>
+                                    <th>name</th>
+                                    <th class="hidden-phone">Engine version</th>
+                                    <th class="hidden-phone">CSS grade</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>
+    <!--body wrapper end-->
+</div>
+
+<div data-layout-fragment="custom_script">
+    <!--dynamic table-->
+    <script type="text/javascript" language="javascript" th:src="@{js/advanced-datatable/js/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{js/data-tables/DT_bootstrap.js}"></script>
+    <!--dynamic table initialization -->
+    <script th:src="@{myJs/product/product_table_init.js}"></script>
+    <!--dynamic table initialization -->
+    <!--<script th:src="@{myJs/product/product_table_init.js}"></script>-->
+    <script type="text/javascript">
+        $(function () {
+            var sideItemName = $("#side_item_name").val();
+            var sideItemId = "side_item_" + sideItemName;
+            $("#" + sideItemId).addClass("active");
+            $('#dynamic-table').dataTable( {
+                "sAjaxSource": "/products/class/0",
+                "aoColumns":[
+                    { "mDataProp": "id" },
+                    { "mDataProp": "number" },
+                    { "mDataProp": "name" },
+                    { "mDataProp": "color" },
+                    { "mDataProp": "size" }
+                ],
+                "aoColumnDefs": [
+                    { "bSortable": false, "aTargets": [ 0 ] }
+                ],
+                "aaSorting": [[1, 'asc']],
+                "fnServerData": function (sUrl, aoData, fnCallback) {
+                    $.ajax({
+                        "url": sUrl,
+                        "data": aoData,
+                        "type": 'get',
+                        "success": fnCallback,
+                        "dataType": "json",
+                        "cache": false
+                    });
+                }
+            } );
+        });
+    </script>
+</div>
 </body>
 </html>

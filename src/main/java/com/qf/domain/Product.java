@@ -23,24 +23,32 @@ public class Product {
     private Float unitPrice;
     @NotNull
     private Integer piecesPerBox;
+
+    @Length(max = 50)
+    private String description;
     @NotNull
     private Integer typeId;
-
-    private Integer stockBox;
-
-    private Integer stockPiece;
-    @Length(max = 50)
-    private String position;
 
     @NotNull
     private Integer userId;
 
-    public String getPosition() {
-        return position;
+    @Length(max = 20)
+    private String imagePath;
+
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getUserId() {
@@ -115,19 +123,4 @@ public class Product {
         this.typeId = typeId;
     }
 
-    public Integer getStockBox() {
-        return stockBox;
-    }
-
-    public void setStockBox(Integer stockBox) {
-        this.stockBox = stockBox;
-    }
-
-    public Integer getStockPiece() {
-        return stockPiece;
-    }
-
-    public void setStockPiece(Integer stockPiece) {
-        this.stockPiece = stockPiece;
-    }
 }
