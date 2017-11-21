@@ -55,4 +55,11 @@ public class ProductController {
         map.put("aaData", products);
         return map;
     }
+
+    @RequestMapping(value = "/number", method = RequestMethod.GET)
+    @ResponseBody
+    public String hasSameProductNumber(String number) {
+       boolean result = productService.hasSameProductNumber(number.trim().toUpperCase());
+        return "{\"hasSame\" : \""+ result +"\"}";
+    }
 }

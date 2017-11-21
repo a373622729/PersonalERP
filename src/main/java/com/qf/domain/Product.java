@@ -3,6 +3,7 @@ package com.qf.domain;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 /**
  * Created by ios on 17/10/24.
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 public class Product {
 
+    @NotNull
     private Integer id;
     @Length(max = 10)
     private String number;
@@ -29,11 +31,30 @@ public class Product {
     @NotNull
     private Integer typeId;
 
+    private Timestamp createAt;
+    private Timestamp updateAt;
+
     @NotNull
     private Integer userId;
 
     @Length(max = 20)
     private String imagePath;
+
+    public Timestamp getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Timestamp createAt) {
+        this.createAt = createAt;
+    }
+
+    public Timestamp getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Timestamp updateAt) {
+        this.updateAt = updateAt;
+    }
 
     public String getImagePath() {
         return imagePath;

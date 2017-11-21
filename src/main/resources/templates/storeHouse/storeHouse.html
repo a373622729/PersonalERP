@@ -5,43 +5,109 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html xmlns="http://www.w3.org/1999/html"
       xmlns:th="http://www.thymeleaf.org"
-      data-layout-decorator="layout">
+      data-layout-decorator="blank_page">
 <head>
-    <title>Home页面</title>
+    <title>仓库</title>
+    <link rel="stylesheet" type="text/css" th:href="@{myJs/bootstrapTreeView/css/bootstrap-treeview.css}"/>
+    <!--dynamic table-->
+    <link th:href="@{js/advanced-datatable/css/demo_page.css}" rel="stylesheet"/>
+    <link th:href="@{js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{js/data-tables/DT_bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{myJs/layui/css/layui.css}"/>
+    <!--file upload-->
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap-fileupload.min.css}" />
+    <style>
+        .modal-title-span {
+            color: red;
+            font-size: 22px;
+        }
+        #product-table>thead:first-child>tr:first-child>th{
+            text-align: center;
+        }
+        .disabled{
+            cursor: not-allowed;
+        }
+    </style>
 </head>
-<body class="hold-transition skin-blue-light sidebar-mini">
-<div class="wrapper">
+<body>
+<div data-layout-fragment="right_content">
+    <input type="hidden" id="side_item_name" value="products"/>
+    <!-- page heading start-->
+    <div class="page-heading">
+        <h3> 仓库 &nbsp;
+            <small>查看库存</small>
+        </h3>
+        <ul class="breadcrumb panel">
+            <li><a th:href="@{/home}"><i class="fa fa-home"></i>主页</a></li>
+            <li class="active">仓库</li>
+        </ul>
+    </div>
+    <!-- page heading end-->
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div data-layout-fragment="content_fragment">
-            <section class="content-header">
-                <h1>
-                    仓库
-                    <small>包含所有的商品信息</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#" th:href="@{/home}"><i class="fa fa-dashboard"></i>主页</a></li>
-                    <li class="active">仓库</li>
-                </ol>
-            </section>
-
-            <!-- Main content -->
-            <section class="content container-fluid">
-                <div th:replace="storeHouse/product_tab :: product_tab">
-                    仓库Tab
+    <!--body wrapper start-->
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <section class="panel">
+                    <div class="panel-heading">
+                        分类列表
+                          <span class="tools pull-right">
+                                <a class="fa fa-chevron-up product_class_fa" href="javascript:;"></a>
+                            </span>
+                    </div>
+                    <div class="panel-body">
+                        <div id="bootstrapTree"></div>
+                    </div>
+                </section>
+            </div>
+            <div id="product_table_row">
+                <div id="product_table_data" class="col-md-8 col-lg-9">
+                    <div th:replace="storeHouse/productTable :: product_table"></div>
                 </div>
-
-            </section>
-            <!-- /.content -->
+            </div>
         </div>
     </div>
-    <!-- /.content-wrapper -->
+
+
 
 </div>
 <!-- ./wrapper -->
+<!-- custom JS SCRIPTS -->
+<div data-layout-fragment="custom_script">
+    <script th:src="@{myJs/bootstrapTreeView/js/bootstrap-treeview.js}"></script>
+    <script th:src="@{myJs/bootstrapTreeView/js/tree-init.js}"></script>
+    <!--dynamic table-->
+    <script type="text/javascript" language="javascript" th:src="@{js/advanced-datatable/js/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{js/data-tables/DT_bootstrap.js}"></script>
+    <!--dynamic table initialization -->
+    <script th:src="@{myJs/product/product_table_init.js}"></script>
 
-<!-- REQUIRED JS SCRIPTS -->
+    <script th:src="@{myJs/layui/layui.all.js}"></script>
+
+    <script type="text/javascript" th:src="@{myJs/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{myJs/product/productClass-validation-init.js}"></script>
+    <script type="text/javascript" th:src="@{myJs/product/product-validation-init.js}"></script>
+    <!--图片上传-->
+    <script type="text/javascript" th:src="@{js/bootstrap-fileupload.min.js}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //选中left_side对应条目
+            var sideItemName = $("#side_item_name").val();
+            var sideItemId = "side_item_" + sideItemName;
+            $("#" + sideItemId).addClass("active");
+            //初始化类别树
+            TreeView.init();
+
+            ProductClassValidate.init();
+            ProductValidate.init();
+
+//            $("#add_product_button").on('click', function(){
+//               $('#productInsertForm').validate().resetForm();
+//            });
+
+        });
+    </script>
+</div>
 </body>
 </html>

@@ -60,6 +60,7 @@ public class ProductClassController {
     @RequestMapping(value = "/class/{pid}", method = RequestMethod.POST)
     @ResponseBody
     public String addProductClass(@PathVariable("pid") Integer pid, String name) {
+        if (name == null || name.isEmpty()) return "{\"success\" : \"false\"}";
         boolean success =  productClassService.addProductClass(pid, name, authContext.get().getId());
         return "{\"success\" : \""+ success +"\"}";
     }
@@ -67,6 +68,7 @@ public class ProductClassController {
     @RequestMapping(value = "/class/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public String updateProductClass(@PathVariable Integer id, String name) {
+        if (name == null || name.isEmpty()) return "{\"success\" : \"false\"}";
         boolean success = productClassService.updateProductClass(id, name, authContext.get().getId());
         return "{\"success\" : \""+ success +"\"}";
     }

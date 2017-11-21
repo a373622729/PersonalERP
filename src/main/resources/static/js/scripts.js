@@ -161,11 +161,12 @@
         if ($(this).hasClass("fa-chevron-up")) {
             $(this).removeClass("fa-chevron-up").addClass("fa-chevron-down");
             el.slideUp(200);
-            collspanProductClass();
+            if ($(this).hasClass("product_class_fa")){collspanProductClass();}
+
         } else if ($(this).hasClass("fa-chevron-down")){
             $(this).removeClass("fa-chevron-down").addClass("fa-chevron-up");
             el.slideDown(200);
-            openProductClass()
+            if ($(this).hasClass("product_class_fa")){ openProductClass()};
         }
     });
 

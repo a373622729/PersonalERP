@@ -44,6 +44,7 @@
     <!-- 生产环境. -->
     <springProfile name="prod">
         <logger name="com.qf.controller" level="ERROR" />
+        <logger name="com.qf.controller" level="info" />
     </springProfile>
 
 </configuration>

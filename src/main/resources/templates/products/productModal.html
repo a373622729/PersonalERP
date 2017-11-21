@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>product class modal</title>
+</head>
+<body>
+
+<div th:fragment="product_insert_modal_layui">
+    <div class="layui-container hide" id="productInsertFormLayui">
+
+        <div class="layui-row" style="padding: 10px">
+            <form class="cmxform layui-form layui-form-pane " id="productInsertForm1">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label"><span class="modal-title-span"></span></label>
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label text-uppercase">编号</label>
+                        <div class="layui-input-inline">
+                            <input  type="text" class="layui-input form-control" name="product.number"
+                                   required="required" minlength="2" maxlength="10"/>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux"><span style="color: red">*</span></div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input form-control" name="product.name"
+                                   maxlength="20"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">颜色</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input form-control" name="product.color"
+                                   maxlength="10"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">成本价</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input form-control" name="product.unitPrice"
+                                   required="required" number="true"/>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">元/片<span style="color: red">*</span></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">尺寸</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input form-control" name="product.size"
+                                   maxlength="10"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">单位</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input form-control" name="product.piecesPerBox"
+                                   required="required" digits="true"/>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">片/箱<span style="color: red">*</span></div>
+                    </div>
+                </div>
+                <div class="layui-form-item  layui-form-text">
+                    <div class="layui-inline col-md-5">
+                        <label class="layui-form-label">描述</label>
+                        <div class="layui-input-block">
+                            <textarea rows="2" placeholder="请输入内容" class="layui-textarea form-control"
+                                      name="product.description" maxlength="50"></textarea>
+                        </div>
+                    </div>
+                    <!--<label class="control-label col-md-3">上传图片</label>-->
+                    <div class="form-group layui-inline  col-md-offset-2">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="fileupload-new thumbnail" style="width: 140px; height: 100px;">
+                                <img src="http://www.placehold.it/140x100/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                            </div>
+                            <div class="fileupload-preview fileupload-exists thumbnail"
+                                 style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                            <div>
+                                                   <span class="btn btn-default btn-file">
+                                                   <span class="fileupload-new"><i
+                                                           class="fa fa-paper-clip"></i>上传图片</span>
+                                                   <span class="fileupload-exists"><i
+                                                           class="fa fa-undo"></i>更改</span>
+                                                   <input type="file" name="productImage" class="default"/>
+                                                   </span>
+                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i
+                                        class="fa fa-trash"></i>移除</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">存放位置</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input form-control" name="stock.position"
+                                   maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">数量</label>
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input form-control" name="stock.countOfPieces"
+                                   required="required" digits="true"/>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">片<span style="color: red">*</span></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="submit" class="layui-btn">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="product_insert_modal" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+     tabindex="-1" id="productInsertModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">为<span class="modal-title-span"></span>增加新产品</h4>
+            </div>
+            <div class="modal-body">
+            <form role="form" class="cmxform form-horizontal" id="productInsertForm">
+
+                <div class="form-group">
+                    <label for="product_number1" class="control-label col-md-2">编号</label>
+                    <div class="col-md-4">
+                        <input id="product_number1" type="text" class="form-control " name="product.number"
+                               required="required" minlength="2" maxlength="10"/>
+                    </div>
+                    <label for="product_name1" class="control-label col-md-2">名称</label>
+                    <div class="col-md-4">
+                        <input id="product_name1" type="text" class="form-control " name="product.name"
+                               maxlength="10"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="product_color1" class="control-label col-md-2">颜色</label>
+                    <div class="col-md-4">
+                        <input id="product_color1" type="text" class="form-control " name="product.color"
+                               maxlength="10"/>
+                    </div>
+                    <label for="product_size1" class="control-label col-md-2">尺寸</label>
+                    <div class="col-md-4">
+                        <input id="product_size1" type="text" class="form-control" name="product.size"
+                               maxlength="10"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="product_unitprice1" class="control-label col-md-2">成本价</label>
+                    <div class="col-md-4">
+                        <div class="input-group" id="product_unitprice1_ig">
+                            <input id="product_unitPrice1" type="text" class="form-control"
+                                   name="product.unitPrice"
+                                   required="required" number="true"/>
+                            <span class="input-group-addon">元/片</span>
+                        </div>
+                    </div>
+                    <label for="product_piecesperbox1" class="control-label col-md-2">单位</label>
+                    <div class="col-md-4">
+                        <div class="input-group" id="product_piecesperbox1_ig">
+                            <input id="product_piecesPerBox1" type="text" class="form-control"
+                                   name="product.piecesPerBox"
+                                   required="required" digits="true"/>
+                            <span class="input-group-addon">片/箱</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stock_position1" class="control-label col-md-2">存放位置</label>
+                    <div class="col-md-4">
+                        <input id="stock_position1" type="text" class="form-control" name="stock.position"
+                               maxlength="10"/>
+                    </div>
+                    <label for="stock_countOfPieces1" class="control-label col-md-2">库存数量</label>
+                    <div class="col-md-4">
+                        <div class="input-group" id="stock_countOfPieces1_ig">
+                            <input id="stock_countOfPieces1" type="text" class="form-control "
+                                   name="stock.countOfPieces"
+                                   required="required" digits="true"/>
+                            <span class="input-group-addon">片</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product_description1" class="control-label col-md-2">描述</label>
+                    <div class="col-md-4">
+                        <textarea id="product_description1" rows="5" type="text" class="form-control"
+                                  name="product.description" maxlength="10"></textarea>
+                    </div>
+                    <div class="col-md-offset-1 col-md-5">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="fileupload-new thumbnail" style="width: 140px; height: 100px;">
+                                <img src="http://www.placehold.it/140x100/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                            </div>
+                            <div class="fileupload-preview fileupload-exists thumbnail"
+                                 style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                            <div class="pull-right">
+                                                   <span class="btn btn-default btn-file btn-sm">
+                                                   <span class="fileupload-new"><i
+                                                           class="fa fa-paper-clip"></i>上传图片</span>
+                                                   <span class="fileupload-exists"><i
+                                                           class="fa fa-undo"></i>更改</span>
+                                                   <input type="file" name="productImage" class="default"/>
+                                                   </span>
+                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i
+                                        class="fa fa-trash"></i>移除</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                        <i class="submit_spinner"></i>
+                        <button type="button" data-dismiss="modal" class="modal-close btn btn-default">取消
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="product_update_modal" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+     tabindex="-1" id="productUpdateModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">修改<span id="update-modal-title-span" class="label label-danger label-lg"></span>的信息</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="cmxform form-horizontal" id="productUpdateForm">
+                    <div class="form-group">
+                        <label for="product_number1" class="control-label col-md-2">编号</label>
+                        <div class="col-md-4">
+                            <input id="product_number2" type="text" class="form-control " name="product.number"
+                                   required="required" minlength="2" maxlength="10"/>
+                        </div>
+                        <label for="product_name1" class="control-label col-md-2">名称</label>
+                        <div class="col-md-4">
+                            <input id="product_name2" type="text" class="form-control " name="product.name"
+                                   maxlength="10"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product_color1" class="control-label col-md-2">颜色</label>
+                        <div class="col-md-4">
+                            <input id="product_color2" type="text" class="form-control " name="product.color"
+                                   maxlength="10"/>
+                        </div>
+                        <label for="product_size1" class="control-label col-md-2">尺寸</label>
+                        <div class="col-md-4">
+                            <input id="product_size2" type="text" class="form-control" name="product.size"
+                                   maxlength="10"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product_unitprice1" class="control-label col-md-2">成本价</label>
+                        <div class="col-md-4">
+                            <div class="input-group" id="product_unitprice2_ig">
+                                <input id="product_unitPrice2" type="text" class="form-control"
+                                       name="product.unitPrice"
+                                       required="required" number="true"/>
+                                <span class="input-group-addon">元/片</span>
+                            </div>
+                        </div>
+                        <label for="product_piecesperbox2" class="control-label col-md-2">单位</label>
+                        <div class="col-md-4">
+                            <div class="input-group" id="product_piecesperbox2_ig">
+                                <input id="product_piecesPerBox2" type="text" class="form-control"
+                                       name="product.piecesPerBox"
+                                       required="required" digits="true"/>
+                                <span class="input-group-addon">片/箱</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock_position1" class="control-label col-md-2">存放位置</label>
+                        <div class="col-md-4">
+                            <input id="stock_position2" type="text" class="form-control" name="stock.position"
+                                   maxlength="10"/>
+                        </div>
+                        <label for="stock_countOfPieces1" class="control-label col-md-2">库存数量</label>
+                        <div class="col-md-4">
+                            <div class="input-group" id="stock_countOfPieces2_ig">
+                                <input id="stock_countOfPieces2" type="text" class="form-control "
+                                       name="stock.countOfPieces"
+                                       required="required" digits="true"/>
+                                <span class="input-group-addon">片</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_description1" class="control-label col-md-2">描述</label>
+                        <div class="col-md-4">
+                        <textarea id="product_description2" rows="5" type="text" class="form-control"
+                                  name="product.description" maxlength="10"></textarea>
+                        </div>
+                        <div class="col-md-offset-1 col-md-5">
+                            <div id="productImageUpdate2" class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="fileupload-new thumbnail" style="width: 140px; height: 100px;">
+                                    <img src="http://www.placehold.it/140x100/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                                </div>
+                                <div class="fileupload-preview fileupload-exists thumbnail"
+                                     style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                <div class="pull-right">
+                                                   <span class="btn btn-default btn-file btn-sm">
+                                                   <span class="fileupload-new"><i
+                                                           class="fa fa-paper-clip"></i>上传图片</span>
+                                                   <span class="fileupload-exists"><i
+                                                           class="fa fa-undo"></i>更改</span>
+                                                   <input type="file" name="productImage" class="default"/>
+                                                   </span>
+                                    <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i
+                                            class="fa fa-trash"></i>移除</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" id="product_id2" name="product.id"/>
+                        <input type="hidden" id="stock_id2" name="stock.id"/>
+                        <div class="col-md-10 col-md-offset-1">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <i class="submit_spinner"></i>
+                            <button type="button" data-dismiss="modal" class="modal-close btn btn-default">取消
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="product_delete_modal" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+     tabindex="-1" id="productDeleteModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">删除<span id="delete-modal-title-span" class="label label-danger label-lg"></span>这一产品信息</h4>
+            </div>
+            <div class="modal-body">
+                你真的要<span style="color: red;"><strong>删除</strong></span>这个产品的所有信息吗?请仔细考虑好!
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="product_id3"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" id="productDeleteBtn" class="btn btn-danger">确定</button>
+                <i class="submit_spinner"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

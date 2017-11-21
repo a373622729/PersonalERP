@@ -40,4 +40,25 @@ public class ProductService {
     public List<Product> findProductsByClassIdAndClassChildrenId(String typeIds) {
         return productMapper.findProductsByClassIdAndClassChildrenId(typeIds);
     }
+
+
+    public boolean hasSameProductNumber(String number) {
+        int count = productMapper.findCountByProductNumber(number);
+        return count > 0;
+    }
+
+    public boolean insertProduct(Product product) {
+        int count = productMapper.insertProduct(product);
+        return count == 1;
+    }
+
+    public boolean updateProduct(Product product) {
+        int count = productMapper.updateProduct(product);
+        return count == 1;
+    }
+
+    public boolean deleteProductById(Integer productId) {
+        int count = productMapper.deleteProductById(productId);
+        return count == 1;
+    }
 }

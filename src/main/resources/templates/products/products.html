@@ -13,7 +13,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link th:href="@{js/advanced-datatable/css/demo_page.css}" rel="stylesheet"/>
     <link th:href="@{js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{js/data-tables/DT_bootstrap.css}"/>
-
+    <link rel="stylesheet" th:href="@{myJs/layui/css/layui.css}"/>
+    <!--file upload-->
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap-fileupload.min.css}" />
     <style>
         .modal-title-span {
             color: red;
@@ -37,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </h3>
         <ul class="breadcrumb panel">
             <li><a th:href="@{/home}"><i class="fa fa-home"></i> Home</a></li>
-            <li class="active">商品</li>
+            <li class="active">管理商品</li>
         </ul>
     </div>
     <!-- page heading end-->
@@ -56,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <a href="#productClassModalDelete" data-toggle="modal" id="deleteOp" class="productClassOp btn fa fa-trash-o" ></a>
                                     <a href="#productClassModalUpdate" data-toggle="modal" id="updateOp" class="productClassOp btn fa fa-refresh" ></a>
                                 </span>
-                                <a class="fa fa-chevron-up" href="javascript:;"></a>
+                                <a class="fa fa-chevron-up product_class_fa" href="javascript:;"></a>
                             </span>
                     </div>
                     <div class="panel-body">
@@ -71,14 +73,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div id="product_table_data" class="col-md-8 col-lg-9">
                     <div th:replace="products/productTable :: product_table"></div>
                 </div>
+                <!--<div th:replace="products/productModal :: product_insert_modal_layui"></div>-->
+                <div th:replace="products/productModal :: product_insert_modal"></div>
+                <div th:replace="products/productModal :: product_update_modal"></div>
+                <div th:replace="products/productModal :: product_delete_modal"></div>
             </div>
         </div>
-
     </div>
+
+
 
 </div>
 <!-- ./wrapper -->
-
 <!-- custom JS SCRIPTS -->
 <div data-layout-fragment="custom_script">
     <script th:src="@{myJs/bootstrapTreeView/js/bootstrap-treeview.js}"></script>
@@ -89,10 +95,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--dynamic table initialization -->
     <script th:src="@{myJs/product/product_table_init.js}"></script>
 
+    <script th:src="@{myJs/layui/layui.all.js}"></script>
+
     <script type="text/javascript" th:src="@{myJs/jquery.validate.min.js}"></script>
-    <script type="text/javascript" th:src="@{myJs/product/validation-init.js}"></script>
+    <script type="text/javascript" th:src="@{myJs/product/productClass-validation-init.js}"></script>
+    <script type="text/javascript" th:src="@{myJs/product/product-validation-init.js}"></script>
+    <!--图片上传-->
+    <script type="text/javascript" th:src="@{js/bootstrap-fileupload.min.js}"></script>
+
     <script type="text/javascript">
-        $().ready(function () {
+        $(document).ready(function () {
             //选中left_side对应条目
             var sideItemName = $("#side_item_name").val();
             var sideItemId = "side_item_" + sideItemName;
@@ -101,6 +113,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             TreeView.init();
 
             ProductClassValidate.init();
+            ProductValidate.init();
+
+//            $("#add_product_button").on('click', function(){
+//               $('#productInsertForm').validate().resetForm();
+//            });
 
         });
     </script>
