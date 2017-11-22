@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface ProductStockMapper {
 
-    @Select("select stock_id, product_id, number, name, color, size, unit_price, description, position, pieces_count, pieces_per_box, type_id, image_path, create_at  from product_stock_view where type_id in (${classIds})")
+    @Select("select stock_id, product_id, number, name, color, size, unit_price, description, position, pieces_count, pieces_per_box, type_id, image_path, create_at, update_at  from product_stock_view where type_id in (${classIds})")
     @Results({
             @Result(column = "stock_id", property = "stock.id"),
             @Result(column = "product_id", property = "product.id"),
@@ -27,7 +27,8 @@ public interface ProductStockMapper {
             @Result(column = "pieces_per_box", property = "product.piecesPerBox"),
             @Result(column = "type_id", property = "product.typeId"),
             @Result(column = "image_path", property = "product.imagePath"),
-            @Result(column = "create_at", property = "product.createAt")
+            @Result(column = "create_at", property = "product.createAt"),
+            @Result(column = "update_at", property = "product.updateAt")
     })
     List<ProductStockVO> findProductStocksByClassIdAndClassChildrenId(@Param("classIds") String classIds);
 }

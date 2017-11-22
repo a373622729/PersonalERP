@@ -14,8 +14,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link th:href="@{js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{js/data-tables/DT_bootstrap.css}"/>
     <link rel="stylesheet" th:href="@{myJs/layui/css/layui.css}"/>
-    <!--file upload-->
-    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap-fileupload.min.css}" />
     <style>
         .modal-title-span {
             color: red;
@@ -27,11 +25,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         .disabled{
             cursor: not-allowed;
         }
+        /*.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {*/
+            /*background-color: #424f64;*/
+            /*color: #fff;*/
+        /*}*/
     </style>
 </head>
 <body>
 <div data-layout-fragment="right_content">
-    <input type="hidden" id="side_item_name" value="products"/>
+    <input type="hidden" id="side_item_name" value="storeHouse"/>
     <!-- page heading start-->
     <div class="page-heading">
         <h3> 仓库 &nbsp;
@@ -56,6 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </span>
                     </div>
                     <div class="panel-body">
+                        <input type="hidden" id="product-class-selected-node-id"/>
                         <div id="bootstrapTree"></div>
                     </div>
                 </section>
@@ -80,16 +83,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script type="text/javascript" language="javascript" th:src="@{js/advanced-datatable/js/jquery.dataTables.js}"></script>
     <script type="text/javascript" th:src="@{js/data-tables/DT_bootstrap.js}"></script>
     <!--dynamic table initialization -->
-    <script th:src="@{myJs/product/product_table_init.js}"></script>
-
+    <script th:src="@{myJs/storeHouse/storeHouse_table_init.js}"></script>
     <script th:src="@{myJs/layui/layui.all.js}"></script>
-
-    <script type="text/javascript" th:src="@{myJs/jquery.validate.min.js}"></script>
-    <script type="text/javascript" th:src="@{myJs/product/productClass-validation-init.js}"></script>
-    <script type="text/javascript" th:src="@{myJs/product/product-validation-init.js}"></script>
-    <!--图片上传-->
-    <script type="text/javascript" th:src="@{js/bootstrap-fileupload.min.js}"></script>
-
+    <script th:src="@{myJs/MyDateFormat.js}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             //选中left_side对应条目
@@ -98,13 +94,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $("#" + sideItemId).addClass("active");
             //初始化类别树
             TreeView.init();
-
-            ProductClassValidate.init();
-            ProductValidate.init();
-
-//            $("#add_product_button").on('click', function(){
-//               $('#productInsertForm').validate().resetForm();
-//            });
 
         });
     </script>
