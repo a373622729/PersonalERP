@@ -1,6 +1,7 @@
 package com.qf.mapper;
 
 import com.qf.domain.Stock;
+import com.qf.domain.StockInRecord;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectKey;
@@ -13,6 +14,9 @@ import org.apache.ibatis.jdbc.SQL;
 @Mapper
 public interface StockMapper {
 
+    @Insert("INSERT INTO STOCK_IN_RECORD (stock_id, count) VALUES (#{stockId}, #{count})")
+    Integer insertStockInRecord(StockInRecord stockInRecord);
+
     @Insert("INSERT INTO STOCK (product_id, position, pieces_count) VALUES (#{productId}, #{position}, #{countOfPieces})")
     @SelectKey(statement = "select last_insert_id()", keyProperty = "productId", before = true, resultType = int.class)
     Integer insertStock(Stock stock);
@@ -20,6 +24,9 @@ public interface StockMapper {
 
     @UpdateProvider(type = StockSqlBuilder.class, method = "buildUpdateStock")
     Integer updateStock(Stock stock);
+
+    @UpdateProvider(type = StockSqlBuilder.class, method = "buildIncreaseStockCount")
+    Integer increaseStockCount(Stock stock);
 
     class StockSqlBuilder {
         public String buildUpdateStock(final Stock stock) {
@@ -33,6 +40,18 @@ public interface StockMapper {
                 }
                 if (stock.getProductId() != null) {
                     SET("product_id = #{productId}");
+                }
+                WHERE("id = #{id}");
+            }}.toString();
+        }
+        public String buildIncreaseStockCount(final Stock stock) {
+            return new SQL(){{
+                UPDATE("stock");
+                if (stock.getCountOfPieces() != null) { //这里不规定大于0,为了可以输入负数调整
+                    SET("pieces_count = pieces_count + #{countOfPieces}");
+                }
+                if (stock.getPosition() != null) {
+                    SET("position = #{position}");
                 }
                 WHERE("id = #{id}");
             }}.toString();

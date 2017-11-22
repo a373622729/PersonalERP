@@ -14,6 +14,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link th:href="@{js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{js/data-tables/DT_bootstrap.css}"/>
     <link rel="stylesheet" th:href="@{myJs/layui/css/layui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{js/jquery-tags-input/jquery.tagsinput.css}" />
+
     <style>
         .modal-title-span {
             color: red;
@@ -37,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- page heading start-->
     <div class="page-heading">
         <h3> 仓库 &nbsp;
-            <small>查看库存</small>
+            <small>查看库存,&nbsp;入库</small>
         </h3>
         <ul class="breadcrumb panel">
             <li><a th:href="@{/home}"><i class="fa fa-home"></i>主页</a></li>
@@ -67,6 +69,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div id="product_table_data" class="col-md-8 col-lg-9">
                     <div th:replace="storeHouse/productTable :: product_table"></div>
                 </div>
+                <div th:replace="storeHouse/stockInModal :: stock_in_modal"></div>
             </div>
         </div>
     </div>
@@ -84,8 +87,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script type="text/javascript" th:src="@{js/data-tables/DT_bootstrap.js}"></script>
     <!--dynamic table initialization -->
     <script th:src="@{myJs/storeHouse/storeHouse_table_init.js}"></script>
+    <script type="text/javascript" th:src="@{myJs/jquery.validate.min.js}"></script>
+    <script th:src="@{myJs/storeHouse/stock-in-validation-init.js}"></script>
     <script th:src="@{myJs/layui/layui.all.js}"></script>
     <script th:src="@{myJs/MyDateFormat.js}"></script>
+    <script th:src="@{js/jquery-tags-input/jquery.tagsinput.js}"></script>
+    <script th:src="@{myJs/storeHouse/tagsinput-init.js}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             //选中left_side对应条目
@@ -94,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $("#" + sideItemId).addClass("active");
             //初始化类别树
             TreeView.init();
-
+            StockInValidate.init();
         });
     </script>
 </div>

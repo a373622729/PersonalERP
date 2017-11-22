@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>product class modal</title>
+</head>
+<body>
+
+<div th:fragment="stock_in_modal" aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+     tabindex="-1" id="stockInModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">为<span id="stock-in-modal-title-span" class="label label-danger"></span>增加库存</h4>
+            </div>
+            <div class="modal-body">
+            <form role="form" class="cmxform form-horizontal" id="stockInForm">
+                <div class="form-group">
+                    <label for="stock_position" class="control-label col-md-2">存放位置</label>
+                    <div class="col-md-4">
+
+                            <input id="stock_position" name="position" type="text" class="tags" />
+
+                        <!--<input id="stock_position" type="text" class="form-control" maxlength="40"/>-->
+                    </div>
+                    <label for="stock_countOfPieces" class="control-label col-md-2">入库数量</label>
+                    <div class="col-md-4">
+                        <div class="input-group" id="stock_countOfPieces_ig">
+                            <input id="stock_countOfPieces" type="text" class="form-control "
+                                   name="countOfPieces"
+                                   required="required" digits="true"/>
+                            <span class="input-group-addon">片</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input type="hidden" id="stock_id" name="id"/>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                        <i class="submit_spinner"></i>
+                        <button type="button" data-dismiss="modal" class="modal-close btn btn-default">取消
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

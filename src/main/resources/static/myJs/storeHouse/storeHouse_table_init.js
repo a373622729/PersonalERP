@@ -51,8 +51,8 @@ jQuery.fn.dataTableExt.afnSortData['money-text'] = function  ( oSettings, iColum
     var nodeLength = oSettings.oApi._fnGetTrNodes(oSettings).length;
     if(nodeLength == 0) return aData;
     for (var i = 0 ; i < nodeLength; i++) {
-        var unitPrice = oSettings.oApi._fnGetCellData(oSettings,i,6);
-        var count = oSettings.oApi._fnGetCellData(oSettings, i, 13);
+        var unitPrice = oSettings.oApi._fnGetCellData(oSettings,i,7);
+        var count = oSettings.oApi._fnGetCellData(oSettings, i, 14);
         aData.push(unitPrice * count);
     }
     //console.log(aData);
@@ -67,6 +67,12 @@ var productStocksTableInitParams = {
     "sAjaxSource": "/productStocks/class/0",
     "aoColumns": [
 
+        {
+            "mDataProp": "", "sClass": "center", "sDefaultContent": "无", "bSortable": false,
+            "mRender": function (data, type, full) {
+                return '<img src="images/details_open.png">';
+            }
+        },
         {"mDataProp": "product.id", "sClass": "center", "bVisible": false},
         {
             "mDataProp": "product.imagePath", "sClass": "center", "bVisible": false,
@@ -90,9 +96,10 @@ var productStocksTableInitParams = {
         {
             "mDataProp": "", "sClass": "center", "sDefaultContent": "无", "bSortable": false,
             "mRender": function (data, type, full) {
-                return '<img src="images/details_open.png">';
+                return "<a class='stock_in btn btn-default btn-sm' href='#stockInModal' data-toggle='modal'> <i class='fa fa-arrow-down'></i></a>";
             }
         }
+
     ],
     "aaSorting": [[1, "asc"]],
     "fnRowCallback": function (nRow, aaData, iDisplayIndex, iDisplayIndexOfAadata) {
@@ -107,17 +114,17 @@ var productStocksTableInitParams = {
         } else {
             content = count + "&nbsp;<span class='label label-success'>" + boxes + "箱零" + pie + "片" + "</span>";
         }
-        $('td:eq(6)', nRow).html(content); //计算箱和片数
+        $('td:eq(7)', nRow).html(content); //计算箱和片数
 
         var unitPrice = aaData.product.unitPrice;
         var totalMoney = unitPrice * count;
-        $('td:eq(7)', nRow).html(totalMoney); //计算值多少钱
+        $('td:eq(8)', nRow).html(totalMoney); //计算值多少钱
         //添加编码图片popover
         //var img = "<img style='width: auto; height: auto; max-width: 100%; max-height: 100%;' src='productImages/" + aaData.product.imagePath + "'/>";
         //var popover = "<span class='btn btn-info popovers' data-container=\"body\" data-trigger='hover' data-html='true' data-placement='right' " +
         //    "data-content=\""+ img +"\" data-original-title=\""+ aaData.product.number +"\">"+ aaData.product.number + "</>";
         var popover = "<button class='btn btn-info btn-sm layui-image-button'>" + aaData.product.number + "</button>";
-        $('td:eq(0)', nRow).html(popover);
+        $('td:eq(1)', nRow).html(popover);
         return nRow;
     },
     "fnInitComplete": function (oSettings, json) {
@@ -129,7 +136,7 @@ var productStocksTableInitParams = {
             return a + b.product.unitPrice * b.stock.countOfPieces;
         },0);
 
-        var foot = "<th colspan='7' style='text-align: right'>总计</th><th colspan='2'>"+total+"元</th> ";
+        var foot = "<th colspan='8' style='text-align: right'>总计</th><th colspan='2' style='text-align: center'><p class='text-primary'>"+total+"元</p></th> ";
         $(nFoot).html(foot);
     }
 };
@@ -176,6 +183,17 @@ function productImageUpdate2PreviewESC() {
 
 $(document).ready(function () {
     productTable = initProductTable();
+    var stockInTags = $('#stock_position').tagsInput({width:'auto'});
+    //入库
+    $(document).on('click', '.stock_in', function () {
+        var nTr = $(this).parents('tr')[0];
+        var data = productTable.fnGetData(nTr);
+        $('#stock-in-modal-title-span').html(data.product.number);
+        $('#stock_id').val(data.stock.id);
+        //$('#stock_position').val(data.stock.position);
+        stockInTags.addTag(data.stock.position);
+    });
+
     //点击编号出现图片
     $(document).on('click', '.layui-image-button', function () {
         var nTr = $(this).parents('tr')[0];
