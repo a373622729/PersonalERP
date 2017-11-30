@@ -2,6 +2,7 @@ package com.qf.service;
 
 import com.qf.domain.Stock;
 import com.qf.domain.StockInRecord;
+import com.qf.mapper.StockInRecordMapper;
 import com.qf.mapper.StockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,13 @@ public class StockService {
 
     @Autowired
     private StockMapper stockMapper;
+    @Autowired
+    private StockInRecordMapper stockInRecordMapper;
 
     @Transactional
     public boolean insertStock(Stock stock) {
         int count = stockMapper.insertStock(stock);
-        StockInRecord stockInRecord = new StockInRecord();
-        stockInRecord.setCount(stock.getCountOfPieces());
-        stockInRecord.setStockId(stock.getId());
-        int count1 = stockMapper.insertStockInRecord(stockInRecord);
-        return count == 1 && count1 == 1;
+        return count == 1;
     }
 
     public boolean updateStock(Stock stock) {
@@ -31,13 +30,15 @@ public class StockService {
         return count == 1;
     }
 
+    /**
+     * 在STOCK中写入新增的数量,并在STOCK_RECORD中插入记录
+     * @param stock
+     * @return
+     */
     @Transactional
-    public boolean increaseStockCount(Stock stock) {
+    public boolean increaseStockCount(Stock stock, StockInRecord stockInRecord) {
         int count = stockMapper.increaseStockCount(stock);
-        StockInRecord stockInRecord = new StockInRecord();
-        stockInRecord.setStockId(stock.getId());
-        stockInRecord.setCount(stock.getCountOfPieces());
-        int count1 = stockMapper.insertStockInRecord(stockInRecord);
+        int count1 = stockInRecordMapper.insertStockInRecord(stockInRecord);
         return count == 1 && count1 == 1;
     }
 }

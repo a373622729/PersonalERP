@@ -183,13 +183,17 @@ function productImageUpdate2PreviewESC() {
 
 $(document).ready(function () {
     productTable = initProductTable();
-    var stockInTags = $('#stock_position').tagsInput({width:'auto'});
+    var stockInTags = $('#stock_position').tagsInput({width:'auto', defaultText: '新增'});
     //入库
     $(document).on('click', '.stock_in', function () {
         var nTr = $(this).parents('tr')[0];
         var data = productTable.fnGetData(nTr);
         $('#stock-in-modal-title-span').html(data.product.number);
         $('#stock_id').val(data.stock.id);
+        $('#product_id').val(data.product.id);
+        $('#product_unitPrice').val(data.product.unitPrice);
+        $('#old_product_unitPrice').val(data.product.unitPrice);
+        $('#old_stock_countOfPieces').val(data.stock.countOfPieces);
         //$('#stock_position').val(data.stock.position);
         stockInTags.addTag(data.stock.position);
     });

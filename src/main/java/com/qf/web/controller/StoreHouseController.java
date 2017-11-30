@@ -1,7 +1,8 @@
 package com.qf.web.controller;
 
 
-import com.qf.domain.Stock;
+import com.qf.domain.ProductStockVO;
+import com.qf.service.ProductStockService;
 import com.qf.service.StockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,8 @@ public class StoreHouseController {
 
     @Autowired
     private StockService stockService;
+    @Autowired
+    private ProductStockService productStockService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String storeHouse() {
@@ -35,9 +38,9 @@ public class StoreHouseController {
 
     @RequestMapping(value = "/stocks/{stockId}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Boolean> updateStock(@PathVariable("stockId") Integer stockId, Stock stock) {
+    public Map<String, Boolean> updateStock(@PathVariable("stockId") Integer stockId, ProductStockVO productStockVO, Float oldProductUnitPrice, Integer oldStockCount) {
         Map<String, Boolean> result = new HashMap<>(1);
-        boolean success = stockService.increaseStockCount(stock);
+        boolean success = productStockService.newStockIn(productStockVO, oldProductUnitPrice, oldStockCount);
         result.put("success", success);
         return result;
     }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>入库记录表</title>
+</head>
+<body>
+<div th:fragment="record_table" th:remove="tag">
+    <section class="panel">
+        <header class="panel-heading" style="overflow: hidden">
+            <!--<h4 style="display: inline"><span class="product_table_span label label-success" >***类别名称（动态获取）</span></h4>-->
+            <div class="col-md-10 col-lg-11" >
+            <form action="#" class="form-horizontal" id="stockInRecordDateQueryForm">
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-lg-1">日期范围</label>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="input-group input-large custom-date-range" data-date="13/07/2013"
+                             data-date-format="mm/dd/yyyy">
+                            <input type="text" class="form-control dpd1" id="startDate" name="startDate"/>
+                            <span class="input-group-addon">至</span>
+                            <input type="text" class="form-control dpd2" id="endDate" name="endDate"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">查询</button>
+                    <i class="submit_spinner"></i>
+                </div>
+            </form>
+            </div>
+            <div class="col-md-2 col-lg-1">
+                <span class="tools pull-right">
+                    <a href="javascript:;" class="fa fa-chevron-up"></a>
+                </span>
+            </div>
+        </header>
+        <div class="panel-body">
+            <div class="adv-table">
+                <table class="display table table-bordered " id="record-table">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>入库时间</th>
+                        <th>存放位置</th>
+                        <th>入库单价(元/片)</th>
+                        <th>入库数量(箱)</th>
+                        <th>价值(元)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

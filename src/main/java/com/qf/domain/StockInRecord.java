@@ -9,10 +9,19 @@ public class StockInRecord {
     private Integer id;
     private Integer stockId;
     private Integer count;
+    private Float unitPrice;
     private Timestamp createAt;
 
     public Integer getId() {
         return id;
+    }
+
+    public Float getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Float unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public void setId(Integer id) {

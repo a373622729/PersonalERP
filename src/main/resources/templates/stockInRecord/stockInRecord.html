@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org"
+      data-layout-decorator="blank_page">
+<head>
+    <title>入库记录</title>
+    <!--dynamic table-->
+    <link th:href="@{js/advanced-datatable/css/demo_page.css}" rel="stylesheet"/>
+    <link th:href="@{js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{js/data-tables/DT_bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{myJs/layui/css/layui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{js/bootstrap-datetimepicker/css/datetimepicker-custom.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{js/bootstrap-datepicker/css/datepicker-custom.css}" />
+    <style>
+        #record-table>thead:first-child>tr:first-child>th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div data-layout-fragment="right_content">
+    <input type="hidden" id="side_item_name" value="stockInRecord"/>
+    <!-- page heading start-->
+    <div class="page-heading">
+        <h3> 入库记录 &nbsp;
+        </h3>
+        <ul class="breadcrumb panel">
+            <li><a th:href="@{/home}"><i class="fa fa-home"></i>主页</a></li>
+            <li class="active">入库记录</li>
+        </ul>
+    </div>
+    <!-- page heading end-->
+
+    <!--body wrapper start-->
+    <div class="wrapper">
+        <div class="row">
+            <div id="stock_in_record_row">
+                <div id="stockInRecord_table_data" class="col-md-12 col-lg-12">
+                    <div th:replace="stockInRecord/recordTable :: record_table"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./wrapper -->
+<!-- custom JS SCRIPTS -->
+<div data-layout-fragment="custom_script">
+    <script th:src="@{myJs/bootstrapTreeView/js/bootstrap-treeview.js}"></script>
+    <script th:src="@{myJs/bootstrapTreeView/js/tree-init.js}"></script>
+    <!--dynamic table-->
+    <script type="text/javascript" language="javascript" th:src="@{js/advanced-datatable/js/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{js/data-tables/DT_bootstrap.js}"></script>
+    <!--dynamic table initialization -->
+    <script th:src="@{myJs/stockInRecord/stockInRecord_table_init.js}"></script>
+    <script th:src="@{myJs/MyDateFormat.js}"></script>
+    <script type="text/javascript" th:src="@{js/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+    <script th:src="@{myJs/layui/layui.all.js}"></script>
+    <script th:src="@{myJs/stockInRecord/pickers-init.js}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //选中left_side对应条目
+            var sideItemName = $("#side_item_name").val();
+            var sideItemId = "side_item_" + sideItemName;
+            $("#" + sideItemId).addClass("active");
+
+
+
+            $("#stockInRecordDateQueryForm").submit(function () {
+                refreshData();
+                return false;
+            });
+
+        });
+    </script>
+</div>
+</body>
+</html>

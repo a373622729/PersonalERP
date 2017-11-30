@@ -14,8 +14,7 @@ import org.apache.ibatis.jdbc.SQL;
 @Mapper
 public interface StockMapper {
 
-    @Insert("INSERT INTO STOCK_IN_RECORD (stock_id, count) VALUES (#{stockId}, #{count})")
-    Integer insertStockInRecord(StockInRecord stockInRecord);
+
 
     @Insert("INSERT INTO STOCK (product_id, position, pieces_count) VALUES (#{productId}, #{position}, #{countOfPieces})")
     @SelectKey(statement = "select last_insert_id()", keyProperty = "productId", before = true, resultType = int.class)
